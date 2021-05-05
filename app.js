@@ -5,16 +5,18 @@ const cookieSession = require('cookie-session');
 const userRouter = require('./routers/user');
 const sumRouter = require('./routers/sum');
 const authRouter = require('./routers/auth');
+const authMiddleware = require('./middlewares/auth')
 
 const app = express();
 
 //session 
 app.use(cookieSession({
-        name: 'session',
-        keys: ['process.env.COOKIE_KEY' || 'secret'],
-        maxAge: 24 * 60 * 60 * 1000 //24h
-    }))
-    // post data
+    name: 'session',
+    keys: ['process.env.COOKIE_KEY' || 'secret'],
+    maxAge: 24 * 60 * 60 * 1000 //24h
+}))
+app.use(authMiddleware);
+// post data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,7 +35,8 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', function(req, res) {
-    res.send('hello world');
+    res.locals.title = 'Trang chủ';
+    res.render('index');;
 });
 app.get('/view', function(req, res) {
     req.session.views = (req.session.views || 0) + 1

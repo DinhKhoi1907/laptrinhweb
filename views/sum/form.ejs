@@ -1,11 +1,14 @@
+<h1>
+    <%- currentUser ? currentUser.displayName: 'Khách' %>
+</h1>
 <form method="post">
     <div class="form-group">
-        <label for="number1">Number1</label>
+        <label for="number1">Số thứ 1:</label>
         <input type="number" class="form-control" name="number1">
     </div>
     <div class="form-group">
-        <label for="number2">Number2</label>
+        <label for="number2">Số thứ 2:</label>
         <input type="number" class="form-control" name="number2">
     </div>
-    <button type="submit" class="btn btn-primary">Sum</button>
+    <button type="submit" class="btn btn-primary">Tổng</button>
 </form>
